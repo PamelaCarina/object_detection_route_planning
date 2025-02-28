@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: yolov5-slam-nav
+Version: 0.0.1
+Summary: Paquete de ROS 2 para integración de YOLOv5 con SLAM Toolbox y Nav2
+Home-page: UNKNOWN
+Maintainer: Tu Nombre
+Maintainer-email: tu_email@example.com
+License: Apache-2.0
+Platform: UNKNOWN
+
+UNKNOWN
+
