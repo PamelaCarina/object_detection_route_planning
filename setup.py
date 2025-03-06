@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'listener_yolov5 = yolov5_slam_nav.listener_yolov5:main',
-            'data_conversion = yolov5_slam_nav.data_conversion:main',
+            'map_updater = yolov5_slam_nav.map_updater:main',
         ],
     },
 )

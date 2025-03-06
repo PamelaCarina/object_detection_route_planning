@@ -1,0 +1,106 @@
+[0.000000] (-) TimerEvent: {}
+[0.000630] (yolov5_slam_nav) JobQueued: {'identifier': 'yolov5_slam_nav', 'dependencies': OrderedDict()}
+[0.002025] (yolov5_slam_nav) JobStarted: {'identifier': 'yolov5_slam_nav'}
+[0.101729] (-) TimerEvent: {}
+[0.202777] (-) TimerEvent: {}
+[0.304592] (-) TimerEvent: {}
+[0.405672] (-) TimerEvent: {}
+[0.507135] (-) TimerEvent: {}
+[0.608521] (-) TimerEvent: {}
+[0.709619] (-) TimerEvent: {}
+[0.810383] (-) TimerEvent: {}
+[0.911078] (-) TimerEvent: {}
+[1.011725] (-) TimerEvent: {}
+[1.112701] (-) TimerEvent: {}
+[1.213732] (-) TimerEvent: {}
+[1.314583] (-) TimerEvent: {}
+[1.415321] (-) TimerEvent: {}
+[1.516103] (-) TimerEvent: {}
+[1.616978] (-) TimerEvent: {}
+[1.717858] (-) TimerEvent: {}
+[1.820401] (-) TimerEvent: {}
+[1.921884] (-) TimerEvent: {}
+[2.023205] (-) TimerEvent: {}
+[2.124829] (-) TimerEvent: {}
+[2.226243] (-) TimerEvent: {}
+[2.327125] (-) TimerEvent: {}
+[2.428303] (-) TimerEvent: {}
+[2.529417] (-) TimerEvent: {}
+[2.642146] (-) TimerEvent: {}
+[2.742852] (-) TimerEvent: {}
+[2.848167] (-) TimerEvent: {}
+[2.948860] (-) TimerEvent: {}
+[3.049972] (-) TimerEvent: {}
+[3.153986] (-) TimerEvent: {}
+[3.254744] (-) TimerEvent: {}
+[3.355632] (-) TimerEvent: {}
+[3.456433] (-) TimerEvent: {}
+[3.557463] (-) TimerEvent: {}
+[3.658395] (-) TimerEvent: {}
+[3.759342] (-) TimerEvent: {}
+[3.860346] (-) TimerEvent: {}
+[3.984050] (-) TimerEvent: {}
+[4.085029] (-) TimerEvent: {}
+[4.187710] (-) TimerEvent: {}
+[4.288466] (-) TimerEvent: {}
+[4.389596] (-) TimerEvent: {}
+[4.490657] (-) TimerEvent: {}
+[4.592217] (-) TimerEvent: {}
+[4.693859] (-) TimerEvent: {}
+[4.796199] (-) TimerEvent: {}
+[4.897063] (-) TimerEvent: {}
+[4.998009] (-) TimerEvent: {}
+[5.089025] (yolov5_slam_nav) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/build', '--no-deps', 'symlink_data'], 'cwd': '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav', 'env': {'NX_ROOT': '/home/jetson/.nx', 'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'JETSON_BOARD': 'P3449-0000', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'JETSON_TYPE': 'Nano (Developer Kit Version)', 'PULSE_CLIENTCONFIG': '/home/jetson/.nx/nxdevice/D-1001-5E55DEF7DFB9A4A72B93D77A37548AE4/audio/client.conf', 'MAIL': '/var/mail/jetson', 'USER': 'jetson', 'LC_TIME': 'nl_NL.UTF-8', 'JETSON_CUDA': '10.2.300', 'XDG_SESSION_TYPE': 'x11', 'NX_SYSTEM': '/usr/NX', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/local/cuda/lib64:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/jetson', 'OLDPWD': '/home/jetson/yolov5_slam_nav/src/yolov5_slam_nav', 'DESKTOP_SESSION': 'ubuntu-xorg', 'JETSON_TENSORRT': '8.0.1.6', 'JETSON_L4T': '32.6.1', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'LC_MONETARY': 'nl_NL.UTF-8', 'JETSON_OPENCV_CUDA': 'YES', 'JETSON_VISIONWORKS': '1.6.0.501', 'DBUS_SESSION_BUS_ADDRESS': 'unix:abstract=/tmp/dbus-FP4zdS1rDF,guid=dfa2a907b575e85bfa6c19c367c60821', 'COLORTERM': 'truecolor', 'JETSON_CHIP_ID': '33', 'PULSE_SCRIPT': '/home/jetson/.nx/nxdevice/D-1001-5E55DEF7DFB9A4A72B93D77A37548AE4/audio/default.pa', 'WAYLAND_DISPLAY': 'no', 'COLCON_PREFIX_PATH': '/home/jetson/yolov5_slam_nav/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'jetson', 'JETSON_MODULE': 'P3448-0000', 'JETSON_SERIAL_NUMBER': '1420221072125', 'JETSON_CUDNN': '8.2.1.32', 'PULSE_SERVER': '/home/jetson/.nx/nxdevice/D-1001-5E55DEF7DFB9A4A72B93D77A37548AE4/audio/native.socket', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'JETSON_CODENAME': 'porg', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jetson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/usr/local/cuda/bin:/opt/ros/foxy/bin:/home/jetson/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/nano:@/tmp/.ICE-unix/9950,unix/nano:/tmp/.ICE-unix/9950', 'PULSE_RUNTIME_PATH': '/run/user/1000/pulse', 'JETSON_OPENCV': '4.12.0-dev', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'nl_NL.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/5703d449_cfa2_4099_9234_725910a900e8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'PULSE_CONFIG': '/home/jetson/.nx/nxdevice/D-1001-5E55DEF7DFB9A4A72B93D77A37548AE4/audio/daemon.conf', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1001', 'JETSON_MACHINE': 'NVIDIA Jetson Nano (Developer Kit Version)', 'LD_PRELOAD': '', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'nl_NL.UTF-8', 'JETSON_L4T_REVISION': '6.1', 'RMW_IMPLEMENTATION': 'rmw_cyclonedds_cpp', 'NX_TEMP': '/tmp', 'XMODIFIERS': '@im=ibus', 'XAUTHORITY': '/home/jetson/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'JETSON_SOC': 'tegra210', 'GNOME_TERMINAL_SERVICE': ':1.99', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav:/opt/ros/foxy', 'SHELL': '/bin/bash', 'LC_NAME': 'nl_NL.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'JETSON_BOARDIDS': '3448', 'NX_CUPS_BIN': '/usr/bin', 'LC_MEASUREMENT': 'nl_NL.UTF-8', 'NX_SESSION_ID': '5E55DEF7DFB9A4A72B93D77A37548AE4', 'GJS_DEBUG_OUTPUT': 'stderr', 'LC_IDENTIFICATION': 'nl_NL.UTF-8', 'JETSON_L4T_RELEASE': '32', 'JETSON_VULKAN_INFO': '', 'QT_IM_MODULE': 'ibus', 'JETSON_CUDA_ARCH_BIN': '5.3', 'PWD': '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav', 'NX_RUNNER': '/usr/NX/bin/nxrunner', 'TURTLEBOT3_MODEL': 'waffle', 'CUDA_HOME': '/usr/local/cuda', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu-xorg:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'JETSON_VPI': 'ii libnvvpi1 1.1.15 arm64 NVIDIA Vision Programming Interface library', 'PYTHONPATH': '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/src:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages:/home/jetson/.local/lib/python3.6/site-packages/', 'LC_NUMERIC': 'nl_NL.UTF-8', 'LC_PAPER': 'nl_NL.UTF-8', 'COLCON': '1', 'VTE_VERSION': '6003', 'JETSON_JETPACK': '4.6', 'NX_CONNECTION': '192.168.1.86 22336 192.168.1.87 4000', 'NXDIR': '/usr/NX'}, 'shell': False}
+[5.098224] (-) TimerEvent: {}
+[5.212156] (-) TimerEvent: {}
+[5.330019] (-) TimerEvent: {}
+[5.431001] (-) TimerEvent: {}
+[5.531897] (-) TimerEvent: {}
+[5.632630] (-) TimerEvent: {}
+[5.733379] (-) TimerEvent: {}
+[5.834090] (-) TimerEvent: {}
+[5.934842] (-) TimerEvent: {}
+[6.036585] (-) TimerEvent: {}
+[6.137435] (-) TimerEvent: {}
+[6.238371] (-) TimerEvent: {}
+[6.339462] (-) TimerEvent: {}
+[6.440388] (-) TimerEvent: {}
+[6.541196] (-) TimerEvent: {}
+[6.642699] (-) TimerEvent: {}
+[6.743790] (-) TimerEvent: {}
+[6.844657] (-) TimerEvent: {}
+[6.929363] (yolov5_slam_nav) StdoutLine: {'line': b'running develop\n'}
+[6.944859] (-) TimerEvent: {}
+[7.046678] (-) TimerEvent: {}
+[7.147496] (-) TimerEvent: {}
+[7.250189] (-) TimerEvent: {}
+[7.351344] (-) TimerEvent: {}
+[7.452116] (-) TimerEvent: {}
+[7.553072] (-) TimerEvent: {}
+[7.654309] (-) TimerEvent: {}
+[7.755224] (-) TimerEvent: {}
+[7.856248] (-) TimerEvent: {}
+[7.908103] (yolov5_slam_nav) StdoutLine: {'line': b'running egg_info\n'}
+[7.913427] (yolov5_slam_nav) StdoutLine: {'line': b'writing src/yolov5_slam_nav.egg-info/PKG-INFO\n'}
+[7.914195] (yolov5_slam_nav) StdoutLine: {'line': b'writing dependency_links to src/yolov5_slam_nav.egg-info/dependency_links.txt\n'}
+[7.914848] (yolov5_slam_nav) StdoutLine: {'line': b'writing entry points to src/yolov5_slam_nav.egg-info/entry_points.txt\n'}
+[7.915499] (yolov5_slam_nav) StdoutLine: {'line': b'writing requirements to src/yolov5_slam_nav.egg-info/requires.txt\n'}
+[7.916546] (yolov5_slam_nav) StdoutLine: {'line': b'writing top-level names to src/yolov5_slam_nav.egg-info/top_level.txt\n'}
+[7.938355] (yolov5_slam_nav) StdoutLine: {'line': b"reading manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'\n"}
+[7.942731] (yolov5_slam_nav) StdoutLine: {'line': b"writing manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'\n"}
+[7.956438] (-) TimerEvent: {}
+[8.057505] (-) TimerEvent: {}
+[8.158734] (-) TimerEvent: {}
+[8.176431] (yolov5_slam_nav) StdoutLine: {'line': b'running build_ext\n'}
+[8.178182] (yolov5_slam_nav) StdoutLine: {'line': b'Creating /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5-slam-nav.egg-link (link to src)\n'}
+[8.181938] (yolov5_slam_nav) StdoutLine: {'line': b'Installing data_conversion script to /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/yolov5_slam_nav\n'}
+[8.183150] (yolov5_slam_nav) StdoutLine: {'line': b'Installing listener_yolov5 script to /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/yolov5_slam_nav\n'}
+[8.184248] (yolov5_slam_nav) StdoutLine: {'line': b'\n'}
+[8.185093] (yolov5_slam_nav) StdoutLine: {'line': b'Installed /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/src\n'}
+[8.185779] (yolov5_slam_nav) StdoutLine: {'line': b'running symlink_data\n'}
+[8.260150] (-) TimerEvent: {}
+[8.361070] (-) TimerEvent: {}
+[8.376171] (yolov5_slam_nav) CommandEnded: {'returncode': 0}
+[8.461238] (-) TimerEvent: {}
+[8.483971] (yolov5_slam_nav) JobEnded: {'identifier': 'yolov5_slam_nav', 'rc': 0}
+[8.488427] (-) EventReactorShutdown: {}

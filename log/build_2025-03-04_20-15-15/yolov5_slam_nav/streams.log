@@ -1,0 +1,28 @@
+[7.387s] Invoking command in '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav': NX_CONNECTION=192.168.1.82 28285 192.168.1.87 4000 PYTHONPATH=/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/build
+[9.347s] running develop
+[10.468s] Removing /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5-slam-nav.egg-link (link to src)
+[10.620s] Invoked command in '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav' returned '0': NX_CONNECTION=192.168.1.82 28285 192.168.1.87 4000 PYTHONPATH=/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/build
+[10.637s] Invoking command in '/home/jetson/yolov5_slam_nav': NX_CONNECTION=192.168.1.82 28285 192.168.1.87 4000 PYTHONPATH=/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/yolov5_slam_nav build --build-base /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/build install --record /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/install.log --single-version-externally-managed install_data --force
+[12.474s] running egg_info
+[12.487s] writing build/yolov5_slam_nav/yolov5_slam_nav.egg-info/PKG-INFO
+[12.488s] writing dependency_links to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/dependency_links.txt
+[12.488s] writing entry points to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/entry_points.txt
+[12.489s] writing requirements to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/requires.txt
+[12.505s] writing top-level names to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/top_level.txt
+[12.511s] reading manifest file 'build/yolov5_slam_nav/yolov5_slam_nav.egg-info/SOURCES.txt'
+[12.517s] writing manifest file 'build/yolov5_slam_nav/yolov5_slam_nav.egg-info/SOURCES.txt'
+[12.518s] running build
+[12.518s] running build_py
+[12.519s] running install
+[12.523s] running install_lib
+[12.534s] running install_data
+[12.535s] copying resource/yolov5_slam_nav -> /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/share/ament_index/resource_index/packages
+[12.535s] copying package.xml -> /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/share/yolov5_slam_nav
+[12.540s] running install_egg_info
+[12.550s] removing '/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav-0.0.1-py3.8.egg-info' (and everything under it)
+[12.551s] Copying build/yolov5_slam_nav/yolov5_slam_nav.egg-info to /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav-0.0.1-py3.8.egg-info
+[12.607s] running install_scripts
+[12.674s] Installing data_conversion script to /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[12.674s] Installing listener_yolov5 script to /home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[12.677s] writing list of installed files to '/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/install.log'
+[12.854s] Invoked command in '/home/jetson/yolov5_slam_nav' returned '0': NX_CONNECTION=192.168.1.82 28285 192.168.1.87 4000 PYTHONPATH=/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/yolov5_slam_nav/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/yolov5_slam_nav build --build-base /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/build install --record /home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/install.log --single-version-externally-managed install_data --force

@@ -3,8 +3,8 @@ setup.cfg
 setup.py
 resource/yolov5_slam_nav
 src/yolov5_slam_nav/__init__.py
-src/yolov5_slam_nav/data_conversion.py
 src/yolov5_slam_nav/listener_yolov5.py
+src/yolov5_slam_nav/map_updater.py
 src/yolov5_slam_nav.egg-info/PKG-INFO
 src/yolov5_slam_nav.egg-info/SOURCES.txt
 src/yolov5_slam_nav.egg-info/dependency_links.txt

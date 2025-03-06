@@ -1,0 +1,4 @@
+[console_scripts]
+data_conversion = yolov5_slam_nav.data_conversion:main
+listener_yolov5 = yolov5_slam_nav.listener_yolov5:main
+
