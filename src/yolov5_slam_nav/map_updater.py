@@ -7,6 +7,8 @@ from visualization_msgs.msg import Marker
 import tf2_ros
 import json
 import numpy as np
+import os
+#from yolov5_slam_nav.srv import NavigateToObject
 
 class MapUpdater(Node):
     def __init__(self):
@@ -27,12 +29,19 @@ class MapUpdater(Node):
         # Publicador de marcadores en RViz2
         self.marker_pub = self.create_publisher(Marker, '/visualization_marker', 10)
 
+        # Servicio para compartir la base de datos de objetos detectados
+        #self.get_object_position_srv = self.create_service(
+        #    NavigateToObject, 'get_object_position', self.get_object_position
+        #)
+
         # Transformaciones TF
-        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_buffer = tf2_ros.Buffer(cache_time=rclpy.duration.Duration(seconds=20.0))
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
         self.current_map = None
         self.lidar_ranges = []
+        self.objects_db = {} # Diccionario de objetos y coordenadas
+
 
     def map_callback(self, msg):
         """Almacena el mapa actual."""
@@ -41,6 +50,17 @@ class MapUpdater(Node):
     def lidar_callback(self, msg):
         """Almacena los datos del LiDAR."""
         self.lidar_ranges = msg.ranges
+
+    def save_objects_to_file(self):
+        """Guarda los objetos detectados en un archivo JSON."""
+        script_dir = os.path.dirname(os.path.realpath(__file__))  # Ruta del script actual
+        maps_dir = os.path.join(script_dir, "maps")  # Carpeta "maps"
+        os.makedirs(maps_dir, exist_ok=True)  # Crea la carpeta si no existe
+
+        file_path = os.path.join(maps_dir, "objects_db.json")  # Guarda en 'maps/'
+        with open(file_path, "w") as file:
+            json.dump(self.objects_db, file)
+        self.get_logger().info(f"Objetos guardados en {file_path}")
 
     def yolo_callback(self, msg):
         """Coloca los objetos detectados en el mapa con su nombre."""
@@ -78,9 +98,13 @@ class MapUpdater(Node):
 
             # Publicar el marcador en RViz2
             self.publish_marker(obj_x_world, obj_y_world, obj_name)
+            #Guarda las coordenadas del objeto en la base de datos
+            self.objects_db[obj_name] = (obj_x_world, obj_y_world)
 
+        self.save_objects_to_file()
         self.map_pub.publish(self.current_map)
         self.get_logger().info("Mapa actualizado con objetos detectados.")
+
 
     def publish_marker(self, x, y, name):
         """Publica un marcador en RViz2 con el nombre del objeto."""
@@ -106,12 +130,12 @@ class MapUpdater(Node):
 
     def image_to_robot(self, x_pixel, y_pixel):
         """Convierte coordenadas de imagen a coordenadas del robot."""
-        cam_fov = 90  
-        cam_width = 640  
-        cam_height = 480  
+        cam_fov = 90
+        cam_width = 640
+        cam_height = 480
 
         angle = (x_pixel / cam_width) * cam_fov - (cam_fov / 2)
-        distance = min(self.lidar_ranges) if self.lidar_ranges else 1.0  
+        distance = min(self.lidar_ranges) if self.lidar_ranges else 1.0
 
         x_robot = distance * np.cos(np.radians(angle))
         y_robot = distance * np.sin(np.radians(angle))
@@ -119,12 +143,12 @@ class MapUpdater(Node):
         return x_robot, y_robot
 
     def robot_to_world(self, x_robot, y_robot):
-        """Convierte coordenadas del robot a coordenadas globales usando TF, asegurando sincronización de tiempo."""
+        """Convierte coordenadas del robot a coordenadas globales usando TF, asegurando sincronización correcta."""
         try:
-            # Obtener el último tiempo disponible en lugar de extrapolar al pasado
+            now = self.get_clock().now() # Usa el tiempo actual del sistema
             transform = self.tf_buffer.lookup_transform(
-                'map', 'base_link', rclpy.time.Time(),
-                timeout=rclpy.duration.Duration(seconds=1.0)  # Espera hasta 1s si es necesario
+                'map', 'base_link', tf2_ros.Time(),
+                timeout=rclpy.duration.Duration(seconds=1.0)
             )
 
             world_x = transform.transform.translation.x + x_robot
@@ -133,8 +157,6 @@ class MapUpdater(Node):
         except Exception as e:
             self.get_logger().warn(f"No se pudo obtener la transformación TF: {str(e)}")
             return None, None
-
-
 
     def get_coco_label(self, class_id):
         """Devuelve el nombre de la clase basada en el COCO Dataset."""

@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'navigator = yolov5_slam_nav.navigator:main',
+            'publish_map_odom_tf = yolov5_slam_nav.publish_map_odom_tf:main',
             'listener_yolov5 = yolov5_slam_nav.listener_yolov5:main',
             'map_updater = yolov5_slam_nav.map_updater:main',
         ],

@@ -1,1 +1,1 @@
-/home/jetson/yolov5_slam_nav/setup.py
+/home/jetson/object_detection_route_planning/setup.py

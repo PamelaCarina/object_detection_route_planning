@@ -1,0 +1,18 @@
+running develop
+running egg_info
+writing src/yolov5_slam_nav.egg-info/PKG-INFO
+writing dependency_links to src/yolov5_slam_nav.egg-info/dependency_links.txt
+writing entry points to src/yolov5_slam_nav.egg-info/entry_points.txt
+writing requirements to src/yolov5_slam_nav.egg-info/requires.txt
+writing top-level names to src/yolov5_slam_nav.egg-info/top_level.txt
+reading manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'
+writing manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5-slam-nav.egg-link (link to src)
+Installing map_updater script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+Installing navigator = yolov5_slam_nav.navigator:mainlistener_yolov5 script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+
+Installed /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src
+running symlink_data
+symbolically linking /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/resource/yolov5_slam_nav -> /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/ament_index/resource_index/packages
+symbolically linking /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/package.xml -> /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav

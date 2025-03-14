@@ -11,5 +11,6 @@ build/yolov5_slam_nav/yolov5_slam_nav.egg-info/top_level.txt
 build/yolov5_slam_nav/yolov5_slam_nav.egg-info/zip-safe
 resource/yolov5_slam_nav
 src/yolov5_slam_nav/__init__.py
-src/yolov5_slam_nav/data_conversion.py
 src/yolov5_slam_nav/listener_yolov5.py
+src/yolov5_slam_nav/map_updater.py
+src/yolov5_slam_nav/navigator.py

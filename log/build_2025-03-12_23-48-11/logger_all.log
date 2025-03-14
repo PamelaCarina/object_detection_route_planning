@@ -1,0 +1,94 @@
+[1.449s] [34mcolcon[0m [1;30mDEBUG[0m [32mCommand line arguments: ['/usr/bin/colcon', 'build', '--symlink-install'][0m
+[1.450s] [34mcolcon[0m [1;30mDEBUG[0m [32mParsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f9c261850>>, merge_install=False, metas=['./colcon.meta'], mixin=None, mixin_files=None, mixin_verb=('build',), packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=True, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f9c261850>, verb_name='build', verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7f9c1f9eb0>)[0m
+[2.722s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) check parameters
+[2.723s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) check parameters
+[2.724s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) check parameters
+[2.724s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) check parameters
+[2.724s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) discover
+[2.724s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) discover
+[2.725s] [34mcolcon.colcon_core.package_discovery[0m [1;30mINFO[0m Crawling recursively for packages in '/home/jetson/object_detection_route_planning'
+[2.725s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ignore', 'ignore_ament_install']
+[2.726s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore'
+[2.726s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore_ament_install'
+[2.727s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_pkg']
+[2.727s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_pkg'
+[2.727s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_meta']
+[2.728s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_meta'
+[2.728s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ros']
+[2.728s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ros'
+[2.849s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage '.' with type 'ros.ament_python' and name 'yolov5_slam_nav'[0m
+[2.849s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) using defaults
+[2.850s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) discover
+[2.850s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) using defaults
+[2.850s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) discover
+[2.850s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) using defaults
+[2.924s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) check parameters
+[2.924s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) discover
+[2.935s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 1 installed packages in /home/jetson/object_detection_route_planning/install[0m
+[2.943s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 238 installed packages in /opt/ros/foxy[0m
+[2.958s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) using defaults
+[3.240s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_args' from command line to 'None'
+[3.241s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_target' from command line to 'None'
+[3.241s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[3.241s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_clean_cache' from command line to 'False'
+[3.242s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_clean_first' from command line to 'False'
+[3.242s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'cmake_force_configure' from command line to 'False'
+[3.242s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'ament_cmake_args' from command line to 'None'
+[3.242s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'catkin_cmake_args' from command line to 'None'
+[3.243s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'yolov5_slam_nav' build argument 'catkin_skip_building_tests' from command line to 'False'
+[3.243s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'yolov5_slam_nav' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav', 'merge_install': False, 'path': '/home/jetson/object_detection_route_planning', 'symlink_install': True, 'test_result_base': None}[0m
+[3.244s] [34mcolcon.colcon_core.executor[0m [1;30mINFO[0m Executing jobs using 'parallel' executor
+[3.249s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete[0m
+[3.251s] [34mcolcon.colcon_ros.task.ament_python.build[0m [1;30mINFO[0m Building ROS package in '/home/jetson/object_detection_route_planning' with build type 'ament_python'
+[3.252s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('yolov5_slam_nav', 'ament_prefix_path')
+[3.266s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[3.267s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/ament_prefix_path.ps1'
+[3.272s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/ament_prefix_path.dsv'
+[3.275s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/ament_prefix_path.sh'
+[3.281s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.281s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[5.490s] [34mcolcon.colcon_core.task.python.build[0m [1;30mINFO[0m Building Python package in '/home/jetson/object_detection_route_planning'
+[5.492s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.492s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[9.228s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav': NX_CONNECTION=192.168.1.82 5292 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build --no-deps symlink_data[0m
+[12.505s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('yolov5_slam_nav', 'pythonpath_develop')
+[12.508s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src/share/yolov5_slam_nav/hook/pythonpath_develop.ps1'
+[12.510s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav' returned '0': NX_CONNECTION=192.168.1.82 5292 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build --no-deps symlink_data[0m
+[12.513s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src/share/yolov5_slam_nav/hook/pythonpath_develop.dsv'
+[12.516s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src/share/yolov5_slam_nav/hook/pythonpath_develop.sh'
+[12.543s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav' for CMake module files
+[12.547s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav' for CMake config files
+[12.553s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib'
+[12.554s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/bin'
+[12.555s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/pkgconfig/yolov5_slam_nav.pc'
+[12.556s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages'
+[12.557s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('yolov5_slam_nav', 'pythonpath')
+[12.558s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/pythonpath.ps1'
+[12.561s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/pythonpath.dsv'
+[12.564s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/hook/pythonpath.sh'
+[12.568s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/bin'
+[12.569s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(yolov5_slam_nav)
+[12.572s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/package.ps1'
+[12.582s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/package.dsv'
+[12.588s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/package.sh'
+[12.596s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/package.bash'
+[12.602s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/yolov5_slam_nav/package.zsh'
+[12.608s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/share/colcon-core/packages/yolov5_slam_nav)
+[12.611s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mclosing loop[0m
+[12.614s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mloop closed[0m
+[12.615s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete finished with '0'[0m
+[12.615s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoining thread[0m
+[12.663s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[12.663s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[12.664s] [34mcolcon.colcon_notification.desktop_notification[0m [1;30mINFO[0m Sending desktop notification using 'notify2'
+[12.791s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoined thread[0m
+[12.793s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jetson/object_detection_route_planning/install/local_setup.ps1'
+[12.801s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/jetson/object_detection_route_planning/install/_local_setup_util_ps1.py'
+[12.814s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jetson/object_detection_route_planning/install/setup.ps1'
+[12.859s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jetson/object_detection_route_planning/install/local_setup.sh'
+[12.872s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/jetson/object_detection_route_planning/install/_local_setup_util_sh.py'
+[12.887s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jetson/object_detection_route_planning/install/setup.sh'
+[12.913s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jetson/object_detection_route_planning/install/local_setup.bash'
+[12.927s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jetson/object_detection_route_planning/install/setup.bash'
+[12.947s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jetson/object_detection_route_planning/install/local_setup.zsh'
+[12.968s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jetson/object_detection_route_planning/install/setup.zsh'

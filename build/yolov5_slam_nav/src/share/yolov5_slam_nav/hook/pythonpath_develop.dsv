@@ -1,1 +1,1 @@
-prepend-non-duplicate;PYTHONPATH;/home/jetson/yolov5_slam_nav/build/yolov5_slam_nav/src
+prepend-non-duplicate;PYTHONPATH;/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src

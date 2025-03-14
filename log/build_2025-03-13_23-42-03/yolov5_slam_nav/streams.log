@@ -1,0 +1,20 @@
+[6.678s] Invoking command in '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav': NX_CONNECTION=192.168.1.82 49461 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build --no-deps symlink_data
+[9.193s] running develop
+[10.577s] running egg_info
+[10.577s] writing src/yolov5_slam_nav.egg-info/PKG-INFO
+[10.579s] writing dependency_links to src/yolov5_slam_nav.egg-info/dependency_links.txt
+[10.580s] writing entry points to src/yolov5_slam_nav.egg-info/entry_points.txt
+[10.581s] writing requirements to src/yolov5_slam_nav.egg-info/requires.txt
+[10.581s] writing top-level names to src/yolov5_slam_nav.egg-info/top_level.txt
+[10.615s] reading manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'
+[10.651s] writing manifest file 'src/yolov5_slam_nav.egg-info/SOURCES.txt'
+[10.896s] running build_ext
+[10.897s] Creating /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5-slam-nav.egg-link (link to src)
+[10.903s] Installing listener_yolov5 script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[10.905s] Installing map_updater script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[10.906s] Installing navigator script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[10.908s] Installing publish_map_odom_tf script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[10.909s] 
+[10.910s] Installed /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/src
+[10.911s] running symlink_data
+[11.066s] Invoked command in '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav' returned '0': NX_CONNECTION=192.168.1.82 49461 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build --no-deps symlink_data

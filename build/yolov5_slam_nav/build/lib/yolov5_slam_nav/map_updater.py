@@ -1,0 +1,198 @@
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import OccupancyGrid
+from sensor_msgs.msg import LaserScan
+from std_msgs.msg import String
+from visualization_msgs.msg import Marker
+import tf2_ros
+import json
+import numpy as np
+import os
+#from yolov5_slam_nav.srv import NavigateToObject
+
+class MapUpdater(Node):
+    def __init__(self):
+        super().__init__('map_updater')
+
+        # Suscripción al mapa de SLAM Toolbox
+        self.map_sub = self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
+
+        # Suscripción a las detecciones de YOLOv5
+        self.yolo_sub = self.create_subscription(String, 'detecciones', self.yolo_callback, 10)
+
+        # Suscripción al LiDAR
+        self.lidar_sub = self.create_subscription(LaserScan, '/scan', self.lidar_callback, 10)
+
+        # Publicador del mapa actualizado
+        self.map_pub = self.create_publisher(OccupancyGrid, '/map', 10)
+
+        # Publicador de marcadores en RViz2
+        self.marker_pub = self.create_publisher(Marker, '/visualization_marker', 10)
+
+        # Servicio para compartir la base de datos de objetos detectados
+        #self.get_object_position_srv = self.create_service(
+        #    NavigateToObject, 'get_object_position', self.get_object_position
+        #)
+
+        # Transformaciones TF
+        self.tf_buffer = tf2_ros.Buffer(cache_time=rclpy.duration.Duration(seconds=10.0))
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
+        self.current_map = None
+        self.lidar_ranges = []
+        #self.objects_db = {} # Diccionario de objetos y coordenadas
+
+
+    def map_callback(self, msg):
+        """Almacena el mapa actual."""
+        self.current_map = msg
+
+    def lidar_callback(self, msg):
+        """Almacena los datos del LiDAR."""
+        self.lidar_ranges = msg.ranges
+
+    def save_objects_to_file(self):
+        """Guarda los objetos detectados en un archivo JSON."""
+        file_path = os.path.expanduser("~/objects_db.json")
+        with open(file_path, "w") as file:
+            json.dump(self.objects_db, file)
+        self.get_logger().info(f"Objetos guardados en {file_path}")
+
+    def yolo_callback(self, msg):
+        """Coloca los objetos detectados en el mapa con su nombre."""
+        if self.current_map is None:
+            self.get_logger().warn("Mapa no recibido aún, esperando...")
+            return
+
+        detections = json.loads(msg.data)
+        width = self.current_map.info.width
+        height = self.current_map.info.height
+        resolution = self.current_map.info.resolution
+        origin_x = self.current_map.info.origin.position.x
+        origin_y = self.current_map.info.origin.position.y
+
+        for detection in detections:
+            obj_class = detection["class"]
+            obj_name = self.get_coco_label(obj_class)
+
+            # Obtener coordenadas en el mundo
+            obj_x_pixel = (detection["xmin"] + detection["xmax"]) / 2
+            obj_y_pixel = (detection["ymin"] + detection["ymax"]) / 2
+            obj_x_robot, obj_y_robot = self.image_to_robot(obj_x_pixel, obj_y_pixel)
+            obj_x_world, obj_y_world = self.robot_to_world(obj_x_robot, obj_y_robot)
+            if obj_x_world is None or obj_y_world is None:
+                continue  # Si la transformación falló, no colocar el marcador
+
+            # Convertir a índice del mapa
+            map_x = int((obj_x_world - origin_x) / resolution)
+            map_y = int((obj_y_world - origin_y) / resolution)
+            index = map_y * width + map_x
+
+            # Marcar en el mapa si está dentro de los límites
+            if 0 <= index < len(self.current_map.data):
+                self.current_map.data[index] = 100  # Marca como ocupado
+
+            # Publicar el marcador en RViz2
+            self.publish_marker(obj_x_world, obj_y_world, obj_name)
+            #Guarda las coordenadas del objeto en la base de datos
+            #self.objects_db[obj_name] = (obj_x_world, obj_y_world)
+
+        self.save_objects_to_file()
+        self.map_pub.publish(self.current_map)
+        self.get_logger().info("Mapa actualizado con objetos detectados.")
+
+    def get_object_position(self, request, response):
+        """Servicio para obtener la posición de un objeto detectado en el mapa."""
+        obj_name = request.object_name  # Nombre del objeto solicitado
+
+        # Verificar si el objeto existe en la base de datos
+        if obj_name in self.objects_db:
+            response.x, response.y = self.objects_db[obj_name]
+            response.success = True
+            self.get_logger().info(f"Posición encontrada para '{obj_name}': ({response.x}, {response.y})")
+        else:
+            response.success = False
+            response.x, response.y = 0.0, 0.0  # Valores por defecto en caso de fallo
+            self.get_logger().warn(f"El objeto '{obj_name}' no fue encontrado en la base de datos.")
+
+        return response
+
+
+    def publish_marker(self, x, y, name):
+        """Publica un marcador en RViz2 con el nombre del objeto."""
+        marker = Marker()
+        marker.header.frame_id = "map"
+        marker.header.stamp = rclpy.time.Time().to_msg()
+        marker.ns = "objects"
+        marker.id = hash(name) % 1000  # ID único para cada tipo de objeto
+        marker.type = Marker.TEXT_VIEW_FACING
+        marker.action = Marker.ADD
+        marker.pose.position.x = x
+        marker.pose.position.y = y
+        marker.pose.position.z = 1.0  # Altura para que sea visible
+        marker.scale.z = 0.5  # Tamaño del texto
+        marker.color.r = 1.0
+        marker.color.g = 1.0
+        marker.color.b = 1.0
+        marker.color.a = 1.0  # Transparencia
+        marker.text = name  # Nombre del objeto detectado
+        
+        self.get_logger().info(f"Publicando marcador: {name} en ({x}, {y})")
+        self.marker_pub.publish(marker)
+
+    def image_to_robot(self, x_pixel, y_pixel):
+        """Convierte coordenadas de imagen a coordenadas del robot."""
+        cam_fov = 90
+        cam_width = 640
+        cam_height = 480
+
+        angle = (x_pixel / cam_width) * cam_fov - (cam_fov / 2)
+        distance = min(self.lidar_ranges) if self.lidar_ranges else 1.0
+
+        x_robot = distance * np.cos(np.radians(angle))
+        y_robot = distance * np.sin(np.radians(angle))
+
+        return x_robot, y_robot
+
+    def robot_to_world(self, x_robot, y_robot):
+        """Convierte coordenadas del robot a coordenadas globales usando TF, asegurando sincronización correcta."""
+        try:
+            now = self.get_clock().now().to_msg()  # Usa el tiempo actual del sistema
+            transform = self.tf_buffer.lookup_transform(
+                'map', 'base_link', rclpy.time.Time(seconds=now.sec, nanoseconds=now.nanosec),
+                timeout=rclpy.duration.Duration(seconds=1.0)
+            )
+
+            world_x = transform.transform.translation.x + x_robot
+            world_y = transform.transform.translation.y + y_robot
+            return world_x, world_y
+        except Exception as e:
+            self.get_logger().warn(f"No se pudo obtener la transformación TF: {str(e)}")
+            return None, None
+
+    def get_coco_label(self, class_id):
+        """Devuelve el nombre de la clase basada en el COCO Dataset."""
+        COCO_CLASSES = [
+            "person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
+            "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+            "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack",
+            "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball",
+            "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket",
+            "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple",
+            "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair",
+            "sofa", "pottedplant", "bed", "diningtable", "toilet", "tvmonitor", "laptop", "mouse",
+            "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator",
+            "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"
+        ]
+        return COCO_CLASSES[class_id] if class_id < len(COCO_CLASSES) else "Unknown"
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MapUpdater()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+

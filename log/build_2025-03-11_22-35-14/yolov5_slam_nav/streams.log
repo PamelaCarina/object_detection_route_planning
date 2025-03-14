@@ -1,0 +1,26 @@
+[6.667s] Invoking command in '/home/jetson/object_detection_route_planning': NX_CONNECTION=192.168.1.82 19410 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/yolov5_slam_nav build --build-base /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build install --record /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/install.log --single-version-externally-managed install_data
+[8.737s] running egg_info
+[8.742s] writing build/yolov5_slam_nav/yolov5_slam_nav.egg-info/PKG-INFO
+[8.744s] writing dependency_links to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/dependency_links.txt
+[8.745s] writing entry points to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/entry_points.txt
+[8.746s] writing requirements to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/requires.txt
+[8.746s] writing top-level names to build/yolov5_slam_nav/yolov5_slam_nav.egg-info/top_level.txt
+[8.767s] reading manifest file 'build/yolov5_slam_nav/yolov5_slam_nav.egg-info/SOURCES.txt'
+[8.773s] writing manifest file 'build/yolov5_slam_nav/yolov5_slam_nav.egg-info/SOURCES.txt'
+[8.774s] running build
+[8.775s] running build_py
+[8.776s] copying src/yolov5_slam_nav/map_updater.py -> /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build/lib/yolov5_slam_nav
+[8.777s] running install
+[8.789s] running install_lib
+[8.789s] copying /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build/lib/yolov5_slam_nav/map_updater.py -> /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav
+[8.791s] byte-compiling /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav/map_updater.py to map_updater.cpython-38.pyc
+[8.843s] running install_data
+[8.844s] running install_egg_info
+[8.845s] removing '/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav-0.0.1-py3.8.egg-info' (and everything under it)
+[8.846s] Copying build/yolov5_slam_nav/yolov5_slam_nav.egg-info to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages/yolov5_slam_nav-0.0.1-py3.8.egg-info
+[8.846s] running install_scripts
+[8.954s] Installing listener_yolov5 script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[8.955s] Installing map_updater script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[8.956s] Installing publish_map_odom_tf script to /home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/yolov5_slam_nav
+[8.956s] writing list of installed files to '/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/install.log'
+[9.136s] Invoked command in '/home/jetson/object_detection_route_planning' returned '0': NX_CONNECTION=192.168.1.82 19410 192.168.1.96 4000 PYTHONPATH=/home/jetson/object_detection_route_planning/build/yolov5_slam_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jetson/object_detection_route_planning/install/yolov5_slam_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/yolov5_slam_nav build --build-base /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/build install --record /home/jetson/object_detection_route_planning/build/yolov5_slam_nav/install.log --single-version-externally-managed install_data
