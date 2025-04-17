@@ -8,26 +8,29 @@ import tf2_ros
 import json
 import numpy as np
 import os
+import tf_transformations
+import math
 #from yolov5_slam_nav.srv import NavigateToObject
+from rclpy.time import Time
 
 class MapUpdater(Node):
     def __init__(self):
         super().__init__('map_updater')
 
         # Suscripción al mapa de SLAM Toolbox
-        self.map_sub = self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
+        self.map_sub = self.create_subscription(OccupancyGrid, '/map', self.map_callback, 1)
 
         # Suscripción a las detecciones de YOLOv5
-        self.yolo_sub = self.create_subscription(String, 'detecciones', self.yolo_callback, 10)
+        self.yolo_sub = self.create_subscription(String, 'detecciones', self.yolo_callback, 2)
 
         # Suscripción al LiDAR
-        self.lidar_sub = self.create_subscription(LaserScan, '/scan', self.lidar_callback, 10)
+        self.lidar_sub = self.create_subscription(LaserScan, '/scan', self.lidar_callback, 5)
 
         # Publicador del mapa actualizado
-        self.map_pub = self.create_publisher(OccupancyGrid, '/map', 10)
+        self.map_pub = self.create_publisher(OccupancyGrid, '/map', 5)
 
         # Publicador de marcadores en RViz2
-        self.marker_pub = self.create_publisher(Marker, '/visualization_marker', 10)
+        self.marker_pub = self.create_publisher(Marker, '/visualization_marker', 5)
 
         # Servicio para compartir la base de datos de objetos detectados
         #self.get_object_position_srv = self.create_service(
@@ -79,27 +82,39 @@ class MapUpdater(Node):
             obj_class = detection["class"]
             obj_name = self.get_coco_label(obj_class)
 
-            # Obtener coordenadas en el mundo
+            # Obtener coordenadas del centro del objeto, se calcula punto medio de la cajita
             obj_x_pixel = (detection["xmin"] + detection["xmax"]) / 2
             obj_y_pixel = (detection["ymin"] + detection["ymax"]) / 2
-            obj_x_robot, obj_y_robot = self.image_to_robot(obj_x_pixel, obj_y_pixel)
-            obj_x_world, obj_y_world = self.robot_to_world(obj_x_robot, obj_y_robot)
-            if obj_x_world is None or obj_y_world is None:
+
+            #Entrego coordenadas del centro del objeto y me devuelve las coordenadas del objeto con respecto al robot
+            obj_x_robot, obj_y_robot = self.image_to_robot(obj_x_pixel, obj_y_pixel, detection["distance_m"])
+            
+            #Entrego coordenadas el objeto con respecto al robot y me devuelve coordenadas que objeto en el mapa
+            timestamp_float = detection["time"]  # por ejemplo: 1712847643.123456
+
+            # Separar segundos y nanosegundos
+            secs = int(timestamp_float)
+            nsecs = int((timestamp_float - secs) * 1e9)
+
+            # Crear objeto Time
+            ros_time = Time(seconds=secs, nanoseconds=nsecs)
+            obj_x_mapa, obj_y_mapa = self.object_to_map(obj_x_robot, obj_y_robot)
+            if obj_x_mapa is None or obj_y_mapa is None:
                 continue  # Si la transformación falló, no colocar el marcador
 
             # Convertir a índice del mapa
-            map_x = int((obj_x_world - origin_x) / resolution)
-            map_y = int((obj_y_world - origin_y) / resolution)
-            index = map_y * width + map_x
+            #map_x = int((obj_x_mapa - origin_x) / resolution)
+            #map_y = int((obj_y_mapa - origin_y) / resolution)
+            #index = map_y * width + map_x
 
             # Marcar en el mapa si está dentro de los límites
-            if 0 <= index < len(self.current_map.data):
-                self.current_map.data[index] = 100  # Marca como ocupado
+            #if 0 <= index < len(self.current_map.data):
+            #    self.current_map.data[index] = 100  # Marca como ocupado
 
             # Publicar el marcador en RViz2
-            self.publish_marker(obj_x_world, obj_y_world, obj_name)
+            self.publish_marker(obj_x_mapa, obj_y_mapa, obj_name)
             #Guarda las coordenadas del objeto en la base de datos
-            self.objects_db[obj_name] = (obj_x_world, obj_y_world)
+            self.objects_db[obj_name] = (obj_x_mapa, obj_y_mapa)
 
         self.save_objects_to_file()
         self.map_pub.publish(self.current_map)
@@ -117,7 +132,7 @@ class MapUpdater(Node):
         marker.action = Marker.ADD
         marker.pose.position.x = x
         marker.pose.position.y = y
-        marker.pose.position.z = 1.0  # Altura para que sea visible
+        marker.pose.position.z = 0.0  # Altura para que sea visible
         marker.scale.z = 0.5  # Tamaño del texto
         marker.color.r = 1.0
         marker.color.g = 1.0
@@ -128,35 +143,53 @@ class MapUpdater(Node):
         self.get_logger().info(f"Publicando marcador: {name} en ({x}, {y})")
         self.marker_pub.publish(marker)
 
-    def image_to_robot(self, x_pixel, y_pixel):
+    def image_to_robot(self, x_pixel, y_pixel, distance):
         """Convierte coordenadas de imagen a coordenadas del robot."""
         cam_fov = 90
-        cam_width = 640
-        cam_height = 480
+        cam_width = 1280
+        cam_height = 720
 
+        #angulo es de izquierda a derecha de 0 a 90
+        #luego se deja de -45 a 45 ya que necesitamos que se adapte a las coordenadas del robot (0,0)
+        #desde el robot la y va hacia adelante y atras y la x de izquierda a derecha
         angle = (x_pixel / cam_width) * cam_fov - (cam_fov / 2)
-        distance = min(self.lidar_ranges) if self.lidar_ranges else 1.0
+        #distance = min(self.lidar_ranges) if self.lidar_ranges else 1.0
 
+        #si el angulo es menor que 0 se multiplica por -1 porque esta hacia el lado izquierdo del robot
+        #el cos del angulo se mueve entre -0,7 y 0    0 y 0,7
         x_robot = distance * np.cos(np.radians(angle))
         y_robot = distance * np.sin(np.radians(angle))
 
-        return x_robot, y_robot
+        # if(angle < 0):
+        #     y_robot *= -1
 
-    def robot_to_world(self, x_robot, y_robot):
+        return y_robot, -x_robot
+
+
+    def object_to_map(self, x_obj, y_obj):
         """Convierte coordenadas del robot a coordenadas globales usando TF, asegurando sincronización correcta."""
         try:
-            now = self.get_clock().now() # Usa el tiempo actual del sistema
+            # obtener posicion del robot respecto al origen
+            now = self.get_clock().now()  # Usa el tiempo actual del sistema
             transform = self.tf_buffer.lookup_transform(
                 'map', 'base_link', tf2_ros.Time(),
-                timeout=rclpy.duration.Duration(seconds=1.0)
+                timeout=rclpy.duration.Duration(seconds=0.5)
             )
 
-            world_x = transform.transform.translation.x + x_robot
-            world_y = transform.transform.translation.y + y_robot
-            return world_x, world_y
+            # Obtener las coordenadas base del robot
+            x_robot = transform.transform.translation.x
+            y_robot = transform.transform.translation.y
+
+            # para obtener las coordenadas del objeto respecto al origen
+            # debemos sumar coords_robot_objeto + coords_origen_robot
+            x_obj_map = x_obj + x_robot
+            y_obj_map = y_obj + y_robot
+
+            return x_obj_map, y_obj_map
         except Exception as e:
             self.get_logger().warn(f"No se pudo obtener la transformación TF: {str(e)}")
             return None, None
+
 
     def get_coco_label(self, class_id):
         """Devuelve el nombre de la clase basada en el COCO Dataset."""
@@ -183,4 +216,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
