@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
+from tf_transformations import quaternion_from_euler
 from nav2_msgs.action import NavigateToPose
 from rclpy.action import ActionClient
 import json
@@ -42,11 +43,16 @@ class ObjectNavigator(Node):
         goal_msg.pose.header.stamp = self.get_clock().now().to_msg()
         goal_msg.pose.pose.position.x = x
         goal_msg.pose.pose.position.y = y
-        goal_msg.pose.pose.orientation.w = 1.0  # Sin rotación
+
+        q = quaternion_from_euler(0, 0, 0)
+        goal_msg.pose.pose.orientation.x = q[0]
+        goal_msg.pose.pose.orientation.y = q[1]
+        goal_msg.pose.pose.orientation.z = q[2]
+        goal_msg.pose.pose.orientation.w = q[3]
 
         # Esperar a que el servidor de acciones esté disponible
         self.action_client.wait_for_server()
-        self.get_logger().info("Servidor de acciones de navegación encontrado ✅")
+        self.get_logger().info("Servidor de acciones de navegación encontrado")
 
         # Enviar la meta
         self.send_goal_future = self.action_client.send_goal_async(goal_msg)
@@ -56,10 +62,10 @@ class ObjectNavigator(Node):
         """Maneja la respuesta de Nav2 al objetivo de navegación."""
         goal_handle = future.result()
         if not goal_handle.accepted:
-            self.get_logger().warn('⚠️ La meta fue rechazada por el servidor de acciones.')
+            self.get_logger().warn('La meta fue rechazada por el servidor de acciones.')
             return
 
-        self.get_logger().info('🚀 Meta aceptada, esperando resultado...')
+        self.get_logger().info('Meta aceptada, esperando resultado...')
         self.get_result_future = goal_handle.get_result_async()
         self.get_result_future.add_done_callback(self.result_callback)
 
@@ -67,16 +73,16 @@ class ObjectNavigator(Node):
         """Maneja el resultado de la navegación."""
         result = future.result()
         if result:
-            self.get_logger().info('🎯 Meta alcanzada exitosamente')
+            self.get_logger().info('Meta alcanzada exitosamente')
         else:
-            self.get_logger().warn('❌ Error al alcanzar la meta')
+            self.get_logger().warn('Error al alcanzar la meta')
 
 def main(args=None):
     rclpy.init(args=args)
     node = ObjectNavigator()
 
     # Mostrar los objetos disponibles
-    print("\n📌 Objetos detectados disponibles para navegación:")
+    print("\nObjetos detectados disponibles para navegación:")
     for obj in node.objects_db.keys():
         print(f" - {obj}")
 
@@ -91,4 +97,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

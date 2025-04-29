@@ -12,6 +12,8 @@ import tf_transformations
 import math
 #from yolov5_slam_nav.srv import NavigateToObject
 from rclpy.time import Time
+from geometry_msgs.msg import PointStamped, Vector3Stamped
+from tf2_geometry_msgs.tf2_geometry_msgs import do_transform_vector3
 
 class MapUpdater(Node):
     def __init__(self):
@@ -89,15 +91,15 @@ class MapUpdater(Node):
             #Entrego coordenadas del centro del objeto y me devuelve las coordenadas del objeto con respecto al robot
             obj_x_robot, obj_y_robot = self.image_to_robot(obj_x_pixel, obj_y_pixel, detection["distance_m"])
             
-            #Entrego coordenadas el objeto con respecto al robot y me devuelve coordenadas que objeto en el mapa
-            timestamp_float = detection["time"]  # por ejemplo: 1712847643.123456
+            # #Entrego coordenadas el objeto con respecto al robot y me devuelve coordenadas que objeto en el mapa
+            # timestamp_float = detection["time"]  # por ejemplo: 1712847643.123456
 
-            # Separar segundos y nanosegundos
-            secs = int(timestamp_float)
-            nsecs = int((timestamp_float - secs) * 1e9)
+            # # Separar segundos y nanosegundos
+            # secs = int(timestamp_float)
+            # nsecs = int((timestamp_float - secs) * 1e9)
 
-            # Crear objeto Time
-            ros_time = Time(seconds=secs, nanoseconds=nsecs)
+            # # Crear objeto Time
+            # ros_time = Time(seconds=secs, nanoseconds=nsecs)
             obj_x_mapa, obj_y_mapa = self.object_to_map(obj_x_robot, obj_y_robot)
             if obj_x_mapa is None or obj_y_mapa is None:
                 continue  # Si la transformación falló, no colocar el marcador
@@ -163,12 +165,19 @@ class MapUpdater(Node):
         # if(angle < 0):
         #     y_robot *= -1
 
-        return y_robot, -x_robot
+        return x_robot, -y_robot
 
 
     def object_to_map(self, x_obj, y_obj):
         """Convierte coordenadas del robot a coordenadas globales usando TF, asegurando sincronización correcta."""
         try:
+            # vector robot objeto
+            vector_local = Vector3Stamped()
+            vector_local.header.frame_id = "base_link"
+            vector_local.vector.x = x_obj
+            vector_local.vector.y = y_obj
+            vector_local.vector.z = 0.0
+
             # obtener posicion del robot respecto al origen
             now = self.get_clock().now()  # Usa el tiempo actual del sistema
             transform = self.tf_buffer.lookup_transform(
@@ -176,14 +185,19 @@ class MapUpdater(Node):
                 timeout=rclpy.duration.Duration(seconds=0.5)
             )
 
+            # Transformamos el vector al frame del mapa (respeta la rotación)
+            vector_global = do_transform_vector3(vector_local, transform)
+
             # Obtener las coordenadas base del robot
             x_robot = transform.transform.translation.x
             y_robot = transform.transform.translation.y
 
             # para obtener las coordenadas del objeto respecto al origen
             # debemos sumar coords_robot_objeto + coords_origen_robot
-            x_obj_map = x_obj + x_robot
-            y_obj_map = y_obj + y_robot
+            x_obj_map = x_robot + vector_global.vector.x
+            y_obj_map = y_robot + vector_global.vector.y
+
+            
 
             return x_obj_map, y_obj_map
         except Exception as e:

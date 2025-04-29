@@ -133,19 +133,18 @@ while True:
                         calibrated = True
                     elif FOCAL_LENGTH is not None:
                         distancia_cm = calcular_distancia(bbox_width, REAL_WIDTHS[label_text], FOCAL_LENGTH)
-
-                detection = {
-                    "xmin": int(xyxy[0]),
-                    "ymin": int(xyxy[1]),
-                    "xmax": int(xyxy[2]),
-                    "ymax": int(xyxy[3]),
-                    "confidence": float(conf),
-                    "class": class_id,
-                    "label": label_text,
-                    "distance_m": round(distancia_cm / 100, 2) if distancia_cm else 0.4,
-                    "time": time.time()
-                }
-                detections.append(detection)
+                if conf > 0.7:
+                    detection = {
+                        "xmin": int(xyxy[0]),
+                        "ymin": int(xyxy[1]),
+                        "xmax": int(xyxy[2]),
+                        "ymax": int(xyxy[3]),
+                        "confidence": float(conf),
+                        "class": class_id,
+                        "label": label_text,
+                        "distance_m": round(distancia_cm / 100, 2) if distancia_cm else 0.4
+                    }
+                    detections.append(detection)
 
                 # Dibujar en pantalla
                 label = f'{label_text} {conf:.2f}'
