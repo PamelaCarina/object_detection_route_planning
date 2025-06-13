@@ -41,7 +41,7 @@ HEIGHT = 720
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-cv2.namedWindow("Deteccion con COCO Dataset", cv2.WINDOW_NORMAL)
+#cv2.namedWindow("Deteccion con COCO Dataset", cv2.WINDOW_NORMAL)
 
 if not cap.isOpened():
     print("No se pudo abrir la camara")
@@ -105,7 +105,7 @@ while True:
         break
 
     # Preprocesamiento
-    img = letterbox(frame, 640, stride=int(model.stride.max()))[0]
+    img = letterbox(frame, 416, stride=int(model.stride.max()))[0]
     img = img.transpose((2, 0, 1))[::-1]  # BGR a RGB
     img = np.ascontiguousarray(img)
     img = torch.from_numpy(img).to(device).float() / 255.0
@@ -116,6 +116,8 @@ while True:
     pred = non_max_suppression(pred, 0.25, 0.45, classes=[14,15,16,25,26,39,41,42,43,44,45,46,47,48,49,51,63,64,66,67,73,76,77,79])
 
     detections = []
+    proporciones_previas = {}
+
     for det in pred:
         if len(det):
             det[:, :4] = scale_coords(img.shape[2:], det[:, :4], frame.shape).round()
@@ -123,8 +125,28 @@ while True:
                 class_id = int(cls)
                 label_text = COCO_CLASSES[class_id]
                 bbox_width = int(xyxy[2]) - int(xyxy[0])
+                bbox_height = int(xyxy[3]) - int(xyxy[1])
+                proporcion = None
 
-                distancia_cm = None
+                if xyxy[0] <= 5 and xyxy[2] >= WIDTH - 5 and xyxy[1] <= 5 and xyxy[3] >= WIDTH - 5:
+                    continue
+
+                #if bbox_width > 0 and bbox_height > 0:
+                #    proporcion = bbox_height / bbox_width
+                #else:
+                #    continue
+
+                #objeto_id = f"{label_text}_{class_id}"
+                #tolerancia_proporcion = 0.4
+                #if objeto_id in proporciones_previas:
+                #    proporcion_previa = proporciones_previas[objeto_id]
+                #    diferencia = abs(proporcion - proporcion_previa) / proporcion_previa
+                #    if diferencia > tolerancia_proporcion:
+                #        continue  # proporción anormal -> se descartar detección
+                #else:
+                #    proporciones_previas[objeto_id] = proporcion  # guardar primera proporción
+
+                distancia_cm = 0
                 if label_text in REAL_WIDTHS and bbox_width > 0:
                     if not calibrated:
                         # Asume distancia real durante calibración (por ejemplo, 40 cm)
@@ -133,7 +155,7 @@ while True:
                         calibrated = True
                     elif FOCAL_LENGTH is not None:
                         distancia_cm = calcular_distancia(bbox_width, REAL_WIDTHS[label_text], FOCAL_LENGTH)
-                if conf > 0.7:
+                if conf > 0.7 and distancia_cm<45:
                     detection = {
                         "xmin": int(xyxy[0]),
                         "ymin": int(xyxy[1]),
@@ -158,9 +180,9 @@ while True:
         message = json.dumps(detections)
         sock.sendto(message.encode(), (UDP_IP, UDP_PORT))
 
-    cv2.imshow('Deteccion con COCO Dataset', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    #cv2.imshow('Deteccion con COCO Dataset', frame)
+    #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #    break
 
     elapsed_time = time.time() - start_time
     sleep_time = frame_interval - elapsed_time

@@ -4,8 +4,11 @@ from geometry_msgs.msg import PoseStamped
 from tf_transformations import quaternion_from_euler
 from nav2_msgs.action import NavigateToPose
 from rclpy.action import ActionClient
+from tf2_ros import Buffer, TransformListener
+from rclpy.duration import Duration
 import json
 import os
+import math
 
 class ObjectNavigator(Node):
     def __init__(self):
@@ -14,6 +17,10 @@ class ObjectNavigator(Node):
 
         # Cargar la base de datos de objetos detectados
         self.objects_db = self.load_objects_from_file()
+
+        #Transformaciones TF para saber posición actual del robot
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
 
     def load_objects_from_file(self):
         """Carga los objetos desde el archivo JSON guardado por map_updater.py."""
@@ -35,28 +42,64 @@ class ObjectNavigator(Node):
             return
 
         x, y = self.objects_db[obj_name]  # Extraer coordenadas del JSON
-        self.get_logger().info(f"Navegando hacia '{obj_name}' en ({x}, {y})")
+        self.get_logger().info(f"Navegando hacia '{obj_name}' en ({x}, {y}), orientacion=({q[0]}, {q[1]}, {q[2]}, {q[3]})")
 
-        # Crear el mensaje de meta para la acción NavigateToPose
+        # Obtener la posición actual del robot
+        try:
+            now = rclpy.time.Time()
+            trans = self.tf_buffer.lookup_transform(
+                'map', 'base_link', now, timeout=Duration(seconds=1.0)
+            )
+            x_robot = trans.transform.translation.x
+            y_robot = trans.transform.translation.y
+        except Exception as e:
+            self.get_logger().warn(f"No se pudo obtener la pose actual del robot: {e}")
+            return
+
+        # Calcular el yaw para mirar hacia el objeto
+        dx = x_goal - x_robot
+        dy = y_goal - y_robot
+        yaw = math.atan2(dy, dx)
+        q = quaternion_from_euler(0, 0, yaw)
+
+        # Crear y enviar el goal
         goal_msg = NavigateToPose.Goal()
         goal_msg.pose.header.frame_id = 'map'
         goal_msg.pose.header.stamp = self.get_clock().now().to_msg()
-        goal_msg.pose.pose.position.x = x
-        goal_msg.pose.pose.position.y = y
-
-        q = quaternion_from_euler(0, 0, 0)
+        goal_msg.pose.pose.position.x = x_goal
+        goal_msg.pose.pose.position.y = y_goal
         goal_msg.pose.pose.orientation.x = q[0]
         goal_msg.pose.pose.orientation.y = q[1]
         goal_msg.pose.pose.orientation.z = q[2]
         goal_msg.pose.pose.orientation.w = q[3]
+
+        # Crear el mensaje de meta para la acción NavigateToPose
+        #goal_msg = NavigateToPose.Goal()
+        #goal_msg.pose.header.frame_id = 'map'
+        #goal_msg.pose.header.stamp = self.get_clock().now().to_msg()
+        #goal_msg.pose.pose.position.x = x
+        #goal_msg.pose.pose.position.y = y
+
+        #orientación del objetivo "mirando al este" (0 radianes)
+        #q = quaternion_from_euler(0, 0, 0)
+        #goal_msg.pose.pose.orientation.x = q[0]
+        #goal_msg.pose.pose.orientation.y = q[1]
+        #goal_msg.pose.pose.orientation.z = q[2]
+        #goal_msg.pose.pose.orientation.w = q[3]
 
         # Esperar a que el servidor de acciones esté disponible
         self.action_client.wait_for_server()
         self.get_logger().info("Servidor de acciones de navegación encontrado")
 
         # Enviar la meta
-        self.send_goal_future = self.action_client.send_goal_async(goal_msg)
-        self.send_goal_future.add_done_callback(self.goal_response_callback)
+        #self.send_goal_future = self.action_client.send_goal_async(goal_msg)
+        #self.send_goal_future.add_done_callback(self.goal_response_callback)
+
+        try:
+            self.send_goal_future = self.action_client.send_goal_async(goal_msg)
+            self.send_goal_future.add_done_callback(self.goal_response_callback)
+        except Exception as e:
+            self.get_logger().error(f"Error enviando goal: {e}")
 
     def goal_response_callback(self, future):
         """Maneja la respuesta de Nav2 al objetivo de navegación."""
