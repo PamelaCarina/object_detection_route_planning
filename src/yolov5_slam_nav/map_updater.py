@@ -8,11 +8,11 @@ import tf2_ros
 import json
 import numpy as np
 import os
-import tf_transformations
-import math
-from rclpy.time import Time
-from geometry_msgs.msg import PointStamped, Vector3Stamped
-from tf2_geometry_msgs.tf2_geometry_msgs import do_transform_vector3, do_transform_point
+#import tf_transformations
+#import math
+#from rclpy.time import Time
+from geometry_msgs.msg import PointStamped
+from tf2_geometry_msgs.tf2_geometry_msgs import do_transform_point
 
 class MapUpdater(Node):
     def __init__(self):
@@ -70,11 +70,11 @@ class MapUpdater(Node):
             return
 
         detections = json.loads(msg.data)
-        width = self.current_map.info.width
-        height = self.current_map.info.height
-        resolution = self.current_map.info.resolution
-        origin_x = self.current_map.info.origin.position.x
-        origin_y = self.current_map.info.origin.position.y
+        #width = self.current_map.info.width
+        #height = self.current_map.info.height
+        #resolution = self.current_map.info.resolution
+        #origin_x = self.current_map.info.origin.position.x
+        #origin_y = self.current_map.info.origin.position.y
 
         for detection in detections:
             obj_class = detection["class"]
@@ -110,7 +110,7 @@ class MapUpdater(Node):
         #Convierte coordenadas de imagen a coordenadas del robot
         cam_fov = 90
         cam_width = 1280
-        cam_height = 720
+        #cam_height = 720
 
         #angulo es de izquierda a derecha de 0 a 90
         #luego se deja de -45 a 45 ya que necesitamos que se adapte a las coordenadas del robot (0,0)

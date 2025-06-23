@@ -131,21 +131,6 @@ while True:
                 if xyxy[0] <= 5 and xyxy[2] >= WIDTH - 5 and xyxy[1] <= 5 and xyxy[3] >= WIDTH - 5:
                     continue
 
-                #if bbox_width > 0 and bbox_height > 0:
-                #    proporcion = bbox_height / bbox_width
-                #else:
-                #    continue
-
-                #objeto_id = f"{label_text}_{class_id}"
-                #tolerancia_proporcion = 0.4
-                #if objeto_id in proporciones_previas:
-                #    proporcion_previa = proporciones_previas[objeto_id]
-                #    diferencia = abs(proporcion - proporcion_previa) / proporcion_previa
-                #    if diferencia > tolerancia_proporcion:
-                #        continue  # proporción anormal -> se descartar detección
-                #else:
-                #    proporciones_previas[objeto_id] = proporcion  # guardar primera proporción
-
                 distancia_cm = 0
                 if label_text in REAL_WIDTHS and bbox_width > 0:
                     if not calibrated:
@@ -155,7 +140,7 @@ while True:
                         calibrated = True
                     elif FOCAL_LENGTH is not None:
                         distancia_cm = calcular_distancia(bbox_width, REAL_WIDTHS[label_text], FOCAL_LENGTH)
-                if conf > 0.7 and distancia_cm<45:
+                if conf > 0.7 and distancia_cm<50:
                     detection = {
                         "xmin": int(xyxy[0]),
                         "ymin": int(xyxy[1]),
