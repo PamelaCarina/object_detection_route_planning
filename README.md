@@ -1,5 +1,7 @@
 # object_detection_route_planning
 
+READ ME en mantención, agradezco la paciencia! 
+
 Install packages
 colcon build --symlink-install
 source install/setup.bash
